@@ -44,6 +44,10 @@
 .dockerignore
 /docker/
 
-# Carpeta build
+# build directories
 
 /build/
+/build-mingw/
+
+# vs code directory
+.vscode/
