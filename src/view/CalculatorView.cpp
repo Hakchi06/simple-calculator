@@ -1,23 +1,25 @@
 #include "view/CalculatorView.h"
+#include "controller/CalculatorController.h"
 
 
 CalculatorView::CalculatorView(int width, int height, const char* title) {
     window = new Fl_Window(width, height, title);
 
-    // Campo de texto para mostrar operaciones
+    // field to display calculator input/output
     display = new Fl_Input(20, 20, width - 40, 40);
     display->readonly(1);
     display->value("hello world");
 
-    // Crear botones
+    // Create buttons
     int btnWidth = 60, btnHeight = 40;
     int xOffset = 20, yOffset = 80;
 
     const char* labels[] = {
-        "7", "8", "9", "/",
-        "4", "5", "6", "*",
-        "1", "2", "3", "-",
-        "0", ".", "=", "+"
+        "AC", "()", "%", "/",
+        "7", "8", "9", "*",
+        "4", "5", "6", "-",
+        "1", "2", "3", "+",
+        "0", ".", "del", "="
     };
 
     for (int i = 0; i < sizeof(labels)/sizeof(labels[0]); ++i) {
@@ -33,18 +35,9 @@ CalculatorView::CalculatorView(int width, int height, const char* title) {
         
         btn->labelfont(FL_HELVETICA);
         btn->labelsize(16);
-
+        btn->callback(onButtonPressed, this); // set callback
         buttons.push_back(btn);
     }
-
-    Fl_Button* clearButton = new Fl_Button(
-        xOffset + 3 * (btnWidth + 10),
-        yOffset + 4 * (btnHeight + 10),
-        btnWidth, btnHeight,
-        "C"
-    );
-
-    clearButton->callback(cb_clear, this);
 
     window->end();
 }
@@ -70,7 +63,18 @@ void CalculatorView::clearDisplay() {
 
 
 // Callback for the clear button
-void CalculatorView::cb_clear(Fl_Widget *w, void* data){
+void CalculatorView::onButtonPressed(Fl_Widget *w, void* data){
     CalculatorView* view = static_cast<CalculatorView*>(data);
-    view->clearDisplay();
+    Fl_Button* button = (Fl_Button*)w;
+    view->getButtonValue(button->label());
+}
+
+void CalculatorView::getButtonValue(const std::string& value){
+    if(controller){
+        controller->getButtonValue(value);
+    }
+}
+
+void CalculatorView::setController(CalculatorController* controller){
+    this->controller = controller;
 }
