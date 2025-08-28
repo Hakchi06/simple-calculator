@@ -12,6 +12,8 @@ include_directories(include /opt/fltk-mingw/include)
 set(SOURCES
     src/main.cpp
     src/view/CalculatorView.cpp
+    src/model/CalculatorModel.cpp
+    src/controller/CalculatorController.cpp
 )
 
 # Create the executable
