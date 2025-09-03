@@ -10,6 +10,7 @@ class CalculatorController {
     private:
         CalculatorModel* model;
         CalculatorView* view;
+        bool parenthesesClose = true; // track if the last parenthesis was closed
     
     public:
         CalculatorController(CalculatorModel* model, CalculatorView* view);
