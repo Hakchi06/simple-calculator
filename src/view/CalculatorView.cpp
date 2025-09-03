@@ -8,7 +8,8 @@ CalculatorView::CalculatorView(int width, int height, const char* title) {
     // field to display calculator input/output
     display = new Fl_Input(20, 20, width - 40, 40);
     display->readonly(1);
-    display->value("hello world");
+    //display->value("");
+    
 
     // Create buttons
     int btnWidth = 60, btnHeight = 40;

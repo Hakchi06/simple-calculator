@@ -139,8 +139,8 @@ double CalculatorModel::calculate() const {
         tokens.pop();
 
         if(token == "+" || token == "-" || token == "*" || token == "/"){
-            double a = values.top(); values.pop();
             double b = values.top(); values.pop();
+            double a = values.top(); values.pop();
 
             if(token == "+") result = a + b;
             else if(token == "-") result = a - b;
