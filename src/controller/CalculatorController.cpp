@@ -1,6 +1,19 @@
 #include "controller/CalculatorController.h"
 #include "model/CalculatorModel.h"
 #include "view/CalculatorView.h"
+#include <algorithm>
+#include <cmath>
+#include <sstream>
+
+
+// Auxiliary functions
+
+std::string formatResult(double result){
+    std::ostringstream oss;
+    oss << std::defaultfloat << result;
+    return oss.str();
+}
+
 
 CalculatorController::CalculatorController(CalculatorModel* model, CalculatorView* view) 
     : model(model), view(view) {
@@ -18,7 +31,7 @@ void CalculatorController::getButtonValue(const std::string& value){
         if(parenthesesClose){
             double result = model->calculate();
             
-            view->setDisplayText(std::to_string(result));
+            view->setDisplayText(formatResult(result));
         }
     } else if(value == "del"){
         std::string del = model->getExpression();
